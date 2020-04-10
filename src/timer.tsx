@@ -1,13 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom";
-//import Timer from "./timer";
-import Counter from "./counter";
 
 interface AppProps {}
 interface AppState {
   timer: number;
 }
-class App extends React.Component<AppProps, AppState> {
+class Timer extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
     this.state = {
@@ -22,12 +19,8 @@ class App extends React.Component<AppProps, AppState> {
   }
 
   render() {
-    return (
-      <div>
-        <Counter />
-      </div>
-    );
+    return <div>Timer:{this.state.timer}</div>;
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("root"));
+export default Timer;
