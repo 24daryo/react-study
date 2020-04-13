@@ -1,33 +1,18 @@
-import React from "react";
-import ReactDOM from "react-dom";
-//import Timer from "./timer";
-import Counter from "./counter";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './components/App';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import { reducers } from './reducers';
 
-interface AppProps {}
-interface AppState {
-  timer: number;
-}
-class App extends React.Component<AppProps, AppState> {
-  constructor(props: AppProps) {
-    super(props);
-    this.state = {
-      timer: 0,
-    };
-    //1秒ごとにStateを更新する
-    setInterval(() => {
-      this.setState({
-        timer: this.state.timer + 1,
-      });
-    }, 1000);
-  }
+const composeEnhancers =
+  (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
 
-  render() {
-    return (
-      <div>
-        <Counter />
-      </div>
-    );
-  }
-}
-
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <Provider store={store}>
+    <App title="calc" />
+  </Provider>,
+  document.querySelector('#root')
+);
